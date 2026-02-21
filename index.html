@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For My Mackenzie Paige Campbell</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --rose:    #c9697a;
+      --blush:   #f2c4ce;
+      --cream:   #fdf6f0;
+      --deep:    #2b1a1f;
+      --gold:    #c8a96e;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Soft grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0.6;
+    }
+
+    /* Radial blush glow */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(242,196,206,0.45) 0%, transparent 75%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Floating petals */
+    .petals-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      top: -40px;
+      font-size: clamp(10px, 1.5vw, 18px);
+      opacity: 0;
+      animation: fall linear infinite;
+      color: var(--rose);
+      filter: drop-shadow(0 2px 4px rgba(201,105,122,0.3));
+    }
+
+    @keyframes fall {
+      0%   { opacity: 0;   transform: translateY(0) rotate(0deg) scale(0.8); }
+      5%   { opacity: 0.7; }
+      95%  { opacity: 0.5; }
+      100% { opacity: 0;   transform: translateY(110vh) rotate(540deg) scale(1.1); }
+    }
+
+    /* Card */
+    .card {
+      position: relative;
+      z-index: 5;
+      background: rgba(253,246,240,0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(200,169,110,0.35);
+      border-radius: 2px;
+      padding: clamp(3rem, 8vw, 6rem) clamp(2.5rem, 7vw, 5.5rem);
+      max-width: min(640px, 90vw);
+      text-align: center;
+      box-shadow:
+        0 4px 32px rgba(43,26,31,0.08),
+        0 1px 0 rgba(200,169,110,0.25) inset,
+        0 -1px 0 rgba(200,169,110,0.15) inset;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: rise 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+    }
+
+    @keyframes rise {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Gold rule */
+    .rule {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 2rem;
+      opacity: 0;
+      animation: fadein 1s ease 1.2s forwards;
+    }
+
+    .rule.bottom { margin: 2rem auto 0; }
+
+    /* Intro label */
+    .label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 200;
+      font-size: clamp(0.55rem, 1.2vw, 0.7rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0;
+      animation: fadein 1s ease 1.4s forwards;
+      margin-bottom: 1.2rem;
+    }
+
+    /* Headline */
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--deep);
+      letter-spacing: -0.01em;
+      opacity: 0;
+      animation: fadein 1s ease 1.6s forwards;
+      margin-bottom: 0.25rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--rose);
+    }
+
+    /* Body text */
+    .message {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-weight: 300;
+      line-height: 1.85;
+      color: #5c3d45;
+      opacity: 0;
+      animation: fadein 1.2s ease 2s forwards;
+      margin-top: 1.8rem;
+    }
+
+    /* Signature */
+    .signature {
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+      font-style: italic;
+      color: var(--rose);
+      letter-spacing: 0.02em;
+      opacity: 0;
+      animation: fadein 1s ease 2.6s forwards;
+      margin-top: 2rem;
+    }
+
+    /* Name line */
+    .name-line {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: clamp(0.85rem, 1.8vw, 1rem);
+      color: var(--deep);
+      letter-spacing: 0.05em;
+      opacity: 0;
+      animation: fadein 1s ease 2.9s forwards;
+      margin-top: 0.6rem;
+    }
+
+    /* Subtle heart pulse */
+    .heart {
+      display: inline-block;
+      animation: heartbeat 1.8s ease-in-out infinite;
+      color: var(--rose);
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1);    }
+      14%       { transform: scale(1.25); }
+      28%       { transform: scale(1);    }
+      42%       { transform: scale(1.15); }
+      70%       { transform: scale(1);    }
+    }
+
+    @keyframes fadein {
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Falling petals -->
+  <div class="petals-canvas" id="petals"></div>
+
+  <div class="card">
+    <p class="label">A note for her</p>
+    <div class="rule"></div>
+
+    <h1>You are my<br><em>favourite.</em></h1>
+
+    <p class="message">
+      Every ordinary day feels like something worth remembering<br>
+      simply because you're in it.<br><br>
+      Thank you for being exactly who you are —<br>
+      intelligent, brilliant, and talented, <em>you</em>.
+    </p>
+
+    <p class="signature">
+      With all my love <span class="heart">♥</span>
+    </p>
+
+    <p class="name-line">— Your Reid Matthew Nelson</p>
+
+    <div class="rule bottom"></div>
+  </div>
+
+  <script>
+    // Generate falling petals (❧ ✿ ❀ ♥ ✦)
+    const symbols = ['✿', '❀', '♥', '✦', '❧'];
+    const canvas  = document.getElementById('petals');
+    const COUNT   = 22;
+
+    for (let i = 0; i < COUNT; i++) {
+      const el = document.createElement('span');
+      el.className  = 'petal';
+      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+
+      const left     = Math.random() * 100;
+      const duration = 9 + Math.random() * 12;
+      const delay    = Math.random() * 14;
+      const size     = 10 + Math.random() * 14;
+
+      el.style.cssText = `
+        left: ${left}%;
+        font-size: ${size}px;
+        animation-duration: ${duration}s;
+        animation-delay: ${delay}s;
+        opacity: 0;
+      `;
+      canvas.appendChild(el);
+    }
+  </script>
+</body>
+</html>
